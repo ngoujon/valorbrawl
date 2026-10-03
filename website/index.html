@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brutes &amp; Légendes</title>
+<meta name="description" content="Brutes & Légendes : le jeu de combats de brutes en ligne dans un univers médiéval fantastique. Défie les joueurs, l'IA, joue la campagne seul ou en coop.">
+<link rel="icon" href="assets/favicon.png">
+<meta property="og:title" content="Brutes & Légendes">
+<meta property="og:description" content="Forge ta brute, défie les joueurs et terrasse le Roi-Dragon !">
+<meta property="og:image" content="assets/bg/key_art.webp">
+<style>
+@font-face { font-family: "Medieval"; src: url(assets/fonts/MedievalSharp.ttf); font-display: swap; }
+@font-face { font-family: "Alegreya"; src: url(assets/fonts/AlegreyaSans-Medium.ttf); font-display: swap; }
+@font-face { font-family: "Alegreya"; font-weight: 800; src: url(assets/fonts/AlegreyaSans-ExtraBold.ttf); font-display: swap; }
+:root {
+  --bg: #170f0a; --panel: #2a1b12; --panel2: #382417; --gold: #f2c14e; --cream: #f8ecd2; --muted: #c8b596;
+  --red: #9e2a1e; --red2: #c23b25; --green: #3d7a2e; --line: #6b4a26;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--cream); font: 18px/1.55 "Alegreya", system-ui, sans-serif; overflow-x: hidden; }
+a { color: var(--gold); }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: "Medieval", serif; color: var(--gold); font-weight: normal; margin: 0 0 .4em; text-shadow: 0 3px 0 #000a; }
+h2 { font-size: clamp(30px, 5vw, 48px); text-align: center; }
+h3 { font-size: 24px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+section { padding: 72px 0; }
+section.alt { background: linear-gradient(#1e140d, #241710); border-block: 2px solid #3b2716; }
+.lead { text-align: center; color: var(--muted); max-width: 760px; margin: 0 auto 36px; font-size: 20px; }
+
+/* navigation */
+nav { position: sticky; top: 0; z-index: 10; background: #120b07ee; backdrop-filter: blur(6px); border-bottom: 2px solid var(--line); }
+nav .wrap { display: flex; align-items: center; gap: 18px; height: 60px; }
+nav .brand { display: flex; align-items: center; gap: 10px; font-family: "Medieval"; color: var(--gold); text-decoration: none; font-size: 22px; white-space: nowrap; }
+nav .brand img { width: 38px; height: 38px; }
+nav .links { display: flex; gap: 16px; margin-left: auto; }
+nav .links a { color: var(--cream); text-decoration: none; font-weight: 800; font-size: 16px; }
+nav .links a:hover { color: var(--gold); }
+@media (max-width: 860px) { nav .links { display: none; } nav .brand span { display: none; } nav .play-mini { margin-left: auto; } }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 26px; border-radius: 10px; border: 2px solid var(--gold);
+  background: var(--red); color: var(--cream); font-weight: 800; font-size: 19px; text-decoration: none; box-shadow: 0 5px 0 #000a; transition: transform .1s, background .2s; cursor: pointer; }
+.btn:hover { background: var(--red2); transform: translateY(-2px); }
+.btn.green { background: var(--green); }
+.btn.green:hover { background: #4c9638; }
+.btn.ghost { background: #0006; }
+.btn.small { padding: 8px 16px; font-size: 16px; }
+
+/* héros */
+.hero { position: relative; min-height: 88vh; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.hero .bg { position: absolute; inset: 0; background: url(assets/bg/key_art.webp) center/cover; filter: brightness(.55); transform: scale(1.05); }
+.hero::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, var(--bg)); }
+.hero .inner { position: relative; z-index: 1; padding: 40px 16px; }
+.hero .logo { width: min(640px, 92vw); margin: 0 auto 10px; filter: drop-shadow(0 10px 18px #000c); animation: pop .9s cubic-bezier(.2, 1.6, .4, 1); }
+.hero .tag { font-size: clamp(20px, 3vw, 28px); font-weight: 800; text-shadow: 0 2px 6px #000; margin: 0 0 26px; }
+.hero .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.hero .stats { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.pill { background: #000a; border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; font-weight: 800; font-size: 16px; }
+.pill b { color: var(--gold); }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* cartes */
+.grid { display: grid; gap: 18px; }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.card { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: 0 6px 0 #0008; }
+.card p { margin: 0; color: var(--muted); }
+.mode { position: relative; overflow: hidden; }
+.mode .ico { font-family: "Medieval"; font-size: 40px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.split { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+.split img { border-radius: 14px; border: 2px solid var(--line); box-shadow: 0 10px 30px #000a; }
+ul.check { list-style: none; padding: 0; margin: 16px 0 0; }
+ul.check li { padding: 6px 0 6px 30px; position: relative; }
+ul.check li::before { content: "✦"; position: absolute; left: 4px; color: var(--gold); }
+
+/* galerie de héros */
+.heroes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+.hcard { background: radial-gradient(circle at 50% 35%, #4a2f1b, var(--panel) 70%); border: 2px solid var(--line); border-radius: 14px; padding: 12px; text-align: center; transition: transform .2s; }
+.hcard:hover { transform: translateY(-6px) rotate(-1deg); border-color: var(--gold); }
+.hcard img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.hcard b { display: block; color: var(--gold); font-size: 20px; }
+.hcard small { color: var(--muted); font-size: 14px; display: block; line-height: 1.3; }
+
+/* campagne */
+.camp { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.boss { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; overflow: hidden; }
+.boss .pic { background: linear-gradient(#5a1d12, #2a1b12); padding: 10px; }
+.boss .pic img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.boss .txt { padding: 12px 14px 16px; }
+.boss .n { font-family: "Medieval"; color: var(--gold); font-size: 21px; }
+.boss .lv { font-size: 14px; color: var(--muted); }
+.boss p { margin: 6px 0 0; font-size: 15px; color: var(--cream); }
+
+/* arsenal */
+.icons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.icon { width: 86px; text-align: center; font-size: 13px; color: var(--muted); }
+.icon img { width: 72px; height: 72px; margin: 0 auto 4px; background: #0004; border-radius: 12px; padding: 6px; border: 1px solid var(--line); }
+.tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+.tabs button { font: inherit; font-weight: 800; color: var(--cream); background: var(--panel2); border: 2px solid var(--line); border-radius: 999px; padding: 6px 18px; cursor: pointer; }
+.tabs button.on { border-color: var(--gold); color: var(--gold); }
+
+/* vidéo / captures */
+.video { max-width: 960px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 3px solid var(--line); box-shadow: 0 16px 40px #000c; background: #000; }
+.video video { width: 100%; display: block; }
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 28px; }
+.shots img { border-radius: 10px; border: 2px solid var(--line); cursor: zoom-in; transition: transform .2s; }
+.shots img:hover { transform: scale(1.02); }
+.lightbox { position: fixed; inset: 0; background: #000e; display: none; place-items: center; z-index: 50; padding: 16px; cursor: zoom-out; }
+.lightbox.on { display: grid; }
+.lightbox img { max-height: 92vh; border-radius: 10px; }
+
+/* classement */
+table { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 14px; overflow: hidden; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #3b2716; }
+th { background: var(--panel2); color: var(--gold); font-weight: 800; }
+td img { width: 40px; height: 40px; object-fit: contain; vertical-align: middle; margin-right: 8px; }
+.rank { font-family: "Medieval"; color: var(--gold); font-size: 22px; }
+@media (max-width: 600px) { .hide-sm { display: none; } th, td { padding: 8px; } }
+
+/* téléchargement */
+.dl { text-align: center; background: url(assets/bg/key_dragon.webp) center/cover; position: relative; }
+.dl::before { content: ""; position: absolute; inset: 0; background: #120b07c8; }
+.dl .wrap { position: relative; }
+.dl .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+.note { color: var(--muted); font-size: 15px; margin-top: 14px; }
+
+details { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+summary { cursor: pointer; font-weight: 800; color: var(--gold); }
+details p { margin: 10px 0 0; color: var(--muted); }
+footer { text-align: center; padding: 36px 16px; color: var(--muted); font-size: 15px; border-top: 2px solid #3b2716; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.webp" alt=""><span>Brutes &amp; Légendes</span></a>
+    <div class="links">
+      <a href="#modes">Modes</a><a href="#heros">Héros</a><a href="#campagne">Campagne</a><a href="#arsenal">Arsenal</a>
+      <a href="#bande-annonce">Bande-annonce</a><a href="#classement">Classement</a><a href="#telecharger">Télécharger</a>
+    </div>
+    <a class="btn small play-mini" href="jouer/">Jouer</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="bg"></div>
+  <div class="inner">
+    <img class="logo" src="assets/logo.webp" alt="Brutes & Légendes">
+    <p class="tag">Forge ta brute. Défie le royaume. Terrasse le Roi-Dragon.</p>
+    <div class="cta">
+      <a class="btn" href="jouer/">Jouer dans le navigateur</a>
+      <a class="btn green" href="#telecharger">Télécharger pour Windows</a>
+      <a class="btn ghost" href="#bande-annonce">Voir la bande-annonce</a>
+    </div>
+    <div class="stats" id="live">
+      <span class="pill"><b id="s-players">-</b> joueurs</span>
+      <span class="pill"><b id="s-fights">-</b> combats livrés</span>
+      <span class="pill"><b id="s-online">-</b> en ligne</span>
+      <span class="pill" id="s-season">Saison 1</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <h2 style="text-align:left">Des combats de brutes... en armure</h2>
+      <p>Hommage au célèbre jeu de navigateur <i>La Brute</i>, <b>Brutes &amp; Légendes</b> t'emmène dans un royaume médiéval fantastique peuplé de barbares, d'elfes hautaines, de nains têtus et de dragons très susceptibles.</p>
+      <p>Crée ta brute, laisse les dieux de l'arène tirer ses talents au sort, puis regarde-la se battre <b>toute seule</b> : armes qui volent, familiers qui mordent, boules de feu et coups critiques. À chaque niveau, choisis un bonus parmi deux et façonne une légende.</p>
+      <ul class="check">
+        <li>Combats automatiques spectaculaires, rejouables et partageables</li>
+        <li>16 armes, 18 compétences, 4 familiers, 8 apparences</li>
+        <li>Parties hébergées sur le serveur : ta progression est sauvegardée en ligne</li>
+        <li>Disponible dans le navigateur et sur Windows, avec mises à jour automatiques</li>
+      </ul>
+    </div>
+    <img src="assets/shots/20_fight_a.webp" onerror="this.src='assets/bg/arene.webp'" alt="Un combat dans l'arène" loading="lazy">
+  </div>
+</section>
+
+<section class="alt" id="modes">
+  <div class="wrap">
+    <h2>Les modes de jeu</h2>
+    <p class="lead">Seul, entre amis ou contre le monde entier : il y a toujours quelqu'un à cogner.</p>
+    <div class="grid g3">
+      <div class="card mode"><div class="ico">I</div><h3>Arène PvP</h3><p>Défie les brutes des autres joueurs, cherche tes rivaux par leur nom et grimpe au classement.</p></div>
+      <div class="card mode"><div class="ico">II</div><h3>Défier l'IA</h3><p>Quatre niveaux de difficulté, de « Facile » à « Légendaire », pour t'entraîner et gagner de l'expérience.</p></div>
+      <div class="card mode"><div class="ico">III</div><h3>Campagne</h3><p>La Quête du Roi-Dragon : 10 chapitres, 10 boss, des récompenses uniques et une bonne dose d'humour.</p></div>
+      <div class="card mode"><div class="ico">IV</div><h3>Coopération</h3><p>Fais équipe jusqu'à 3 contre l'IA, ou affrontez ensemble les boss de la campagne (renforcés pour l'occasion).</p></div>
+      <div class="card mode"><div class="ico">V</div><h3>Salons &amp; duels en direct</h3><p>Crée un salon public ou privé, invite tes amis ou n'importe quel joueur en ligne, lance du PvP jusqu'à 3 contre 3.</p></div>
+      <div class="card mode"><div class="ico">VI</div><h3>Passe de combat</h3><p>30 paliers par saison, une piste gratuite et une piste Légendaire (débloquée avec les écus gagnés en jeu), quêtes du jour.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card"><h3>Amis</h3><p>Ajoute des amis, vois qui est en ligne, défie-les ou invite-les dans ton salon en un clic.</p></div>
+      <div class="card"><h3>Profil</h3><p>Avatar (même ceux des boss vaincus !), devise, titres et auras de combat à débloquer.</p></div>
+      <div class="card"><h3>Bugs &amp; suggestions</h3><p>Signale un problème ou propose une idée depuis le jeu, vote « Moi aussi » et suis leur résolution.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="heros">
+  <div class="wrap">
+    <h2>Choisis ton apparence</h2>
+    <p class="lead">Huit brutes, huit caractères bien trempés. Chacune a son petit bonus de départ.</p>
+    <div class="heroes" id="heroes"></div>
+  </div>
+</section>
+
+<section class="alt" id="campagne">
+  <div class="wrap">
+    <h2>La Quête du Roi-Dragon</h2>
+    <p class="lead">Du Roi Gobelin couronné d'une casserole au terrible Roi-Dragon du Mont Brasier, dix boss t'attendent. Seul ou en coop.</p>
+    <div class="camp" id="camp"></div>
+  </div>
+</section>
+
+<section id="arsenal">
+  <div class="wrap">
+    <h2>L'arsenal</h2>
+    <p class="lead">Armes, compétences et familiers s'obtiennent en montant de niveau. Chaque brute est unique.</p>
+    <div class="tabs">
+      <button class="on" data-tab="weapons">Armes</button><button data-tab="skills">Compétences</button><button data-tab="pets">Familiers</button>
+    </div>
+    <div class="icons" id="arsenal-list"></div>
+  </div>
+</section>
+
+<section class="alt" id="bande-annonce">
+  <div class="wrap">
+    <h2>Bande-annonce</h2>
+    <div class="video"><video controls preload="metadata" poster="assets/bg/key_art.webp" src="assets/trailer.mp4"></video></div>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section id="classement">
+  <div class="wrap">
+    <h2>Les plus grandes brutes</h2>
+    <p class="lead">Classement en direct du serveur.</p>
+    <table>
+      <thead><tr><th>#</th><th>Brute</th><th class="hide-sm">Joueur</th><th>Niveau</th><th class="hide-sm">Victoires</th></tr></thead>
+      <tbody id="toplist"><tr><td colspan="5">Chargement...</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="dl" id="telecharger">
+  <div class="wrap">
+    <h2>Entre dans l'arène</h2>
+    <p class="lead" style="color:var(--cream)">Joue tout de suite dans ton navigateur, ou télécharge la version Windows. Même compte, même progression : tout est sauvegardé sur le serveur.</p>
+    <div class="cta">
+      <a class="btn" href="jouer/">Jouer dans le navigateur</a>
+      <a class="btn green" href="downloads/BrutesEtLegendes-Windows.zip">Télécharger pour Windows (.zip)</a>
+    </div>
+    <p class="note">Version <span id="s-version">1.0.0</span> - Windows 10/11 64 bits. Décompresse l'archive puis lance <b>BrutesEtLegendes.exe</b>. Les mises à jour se téléchargent automatiquement dans le jeu.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="max-width:860px">
+    <h2>Questions fréquentes</h2>
+    <details><summary>Le jeu est-il gratuit ?</summary><p>Oui, entièrement. La piste Légendaire du passe de combat se débloque avec les écus d'or gagnés en combattant.</p></details>
+    <details><summary>Comment se déroulent les combats ?</summary><p>Ils sont automatiques, comme dans La Brute : le serveur simule le combat à partir des caractéristiques, armes, compétences et familiers de chaque brute, puis tu le regardes en direct. Tu peux le revoir à tout moment.</p></details>
+    <details><summary>Combien de combats par jour ?</summary><p>20 combats d'arène, d'IA ou multijoueur par brute et par jour (plus avec les potions d'énergie). La campagne est illimitée.</p></details>
+    <details><summary>Comment jouer avec mes amis ?</summary><p>Ajoute-les dans le menu Amis, puis crée un salon dans le menu Multijoueur : PvP en équipes, coop contre l'IA ou campagne en coop. Tu peux aussi les défier en duel direct.</p></details>
+    <details><summary>Une mise à jour va-t-elle couper ma partie ?</summary><p>Non. Le serveur redémarre en une seconde en gardant les salons, et le jeu se reconnecte tout seul. Sur PC, la nouvelle version se télécharge en arrière-plan et s'installe quand tu veux.</p></details>
+    <details><summary>J'ai trouvé un bug !</summary><p>Clique sur « Signaler » en haut à droite du jeu : décris le problème, les autres joueurs peuvent voter et commenter.</p></details>
+  </div>
+</section>
+
+<footer>
+  <p><b style="color:var(--gold)">Brutes &amp; Légendes</b> - fan-game médiéval fantastique inspiré de La Brute. Graphismes, sons, musiques et bande-annonce générés avec ComfyUI ; jeu réalisé avec Godot.</p>
+</footer>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+
+<script>
+const API = "/test-labrute/api";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let content = null;
+
+fetch("assets/content.json").then((r) => r.json()).then((c) => {
+  content = c;
+  document.getElementById("heroes").innerHTML = c.heroes.map((h) => {
+    const bonus = Object.entries(h.bonus).map(([k, v]) => `${v > 0 ? "+" : ""}${v} ${{ hp: "PV", str: "Force", agi: "Agilité", spd: "Rapidité" }[k]}`).join(", ");
+    return `<div class="hcard"><img src="assets/heroes/${h.id}.webp" alt="${esc(h.name)}" loading="lazy"><b>${esc(h.name)}</b><small>${esc(h.desc)}</small><small style="color:var(--gold)">${esc(bonus)}</small></div>`;
+  }).join("");
+  document.getElementById("camp").innerHTML = c.campaign.map((s, i) =>
+    `<div class="boss"><div class="pic"><img src="assets/bosses/${s.boss}.webp" alt="${esc(s.name)}" loading="lazy"></div>
+     <div class="txt"><div class="lv">Chapitre ${i + 1} - niveau conseillé ${s.level}</div><div class="n">${esc(s.name)}</div><p>${esc(s.intro)}</p></div></div>`).join("");
+  showTab("weapons");
+});
+
+function showTab(tab) {
+  document.querySelectorAll(".tabs button").forEach((b) => b.classList.toggle("on", b.dataset.tab === tab));
+  const list = content[tab];
+  document.getElementById("arsenal-list").innerHTML = list.map((x) => {
+    const tip = tab === "weapons" ? `${x.dmg} dégâts` : tab === "skills" ? x.desc : x.desc;
+    return `<div class="icon" title="${esc(tip)}"><img src="assets/${tab}/${x.id}.webp" alt="" loading="lazy">${esc(x.name)}</div>`;
+  }).join("");
+}
+document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+const SHOTS = ["04_hub", "21_fight_b", "07_campaign", "08_tavern", "11_pass", "22_fight_c"];
+document.getElementById("shots").innerHTML = SHOTS.map((s) => `<img src="assets/shots/${s}.webp" alt="Capture du jeu" loading="lazy" onerror="this.remove()">`).join("");
+const lb = document.getElementById("lb");
+document.getElementById("shots").addEventListener("click", (e) => { if (e.target.tagName === "IMG") { lb.querySelector("img").src = e.target.src; lb.classList.add("on"); } });
+lb.addEventListener("click", () => lb.classList.remove("on"));
+
+function loadStats() {
+  fetch(API + "/stats").then((r) => r.json()).then((s) => {
+    document.getElementById("s-players").textContent = s.players;
+    document.getElementById("s-fights").textContent = s.fights;
+    document.getElementById("s-online").textContent = s.online;
+    document.getElementById("s-season").textContent = s.season;
+    document.getElementById("s-version").textContent = s.version;
+    const rows = s.top.map((b, i) => `<tr><td class="rank">${i + 1}</td><td><img src="assets/heroes/${esc(b.hero)}.webp" alt="">${esc(b.name)}${b.title ? ` <small style="color:var(--gold)">- ${esc(b.title)}</small>` : ""}</td>
+      <td class="hide-sm">${esc(b.owner)}</td><td>${b.level}</td><td class="hide-sm">${b.wins}</td></tr>`).join("");
+    document.getElementById("toplist").innerHTML = rows || '<tr><td colspan="5">Aucune brute pour l\'instant : sois la première légende !</td></tr>';
+  }).catch(() => { document.getElementById("toplist").innerHTML = '<tr><td colspan="5">Serveur momentanément indisponible.</td></tr>'; });
+}
+loadStats();
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>

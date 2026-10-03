@@ -1,0 +1,8 @@
+{
+  "name": "brutes-et-legendes-server",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": { "start": "node src/server.js", "test": "node test/smoke.js" },
+  "dependencies": { "ws": "^8.18.0" }
+}

@@ -1,0 +1,9 @@
+.godot/
+/android/
+build/
+server/node_modules/
+server/var*/
+tools/trailer/rec/
+tools/local-server.log
+__pycache__/
+*.pyc

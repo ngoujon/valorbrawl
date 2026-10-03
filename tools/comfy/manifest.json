@@ -1,0 +1,973 @@
+{
+ "styles": {
+  "char": "side view facing right, full body, funny caricature with big head and short legs, 2D flash game cartoon style, thick black ink outlines, flat cel shading, warm medieval fantasy colors, centered, single subject, isolated on plain white background, no ground, no shadow, no text",
+  "icon": "medieval fantasy game item icon, 2D cartoon style, thick black ink outlines, flat cel shading, warm saturated colors, single object centered, isolated on plain white background, no shadow, no text",
+  "skill": "round medieval fantasy skill badge icon, 2D cartoon style, thick black ink outlines, flat cel shading, vibrant colors, centered emblem, isolated on plain white background, no text, no letters",
+  "scene": "wide 2D side-view video game fighting arena background, flat ground in the lower third, empty stage, no characters, hand-drawn cartoon illustration, thick ink outlines, cel shading, warm medieval fantasy colors, detailed, no text",
+  "art": "epic medieval fantasy key art, 2D cartoon illustration, thick ink outlines, cel shading, dramatic lighting, vibrant colors, detailed",
+  "none": ""
+ },
+ "negative": {
+  "image": "blurry, photo, photorealistic, 3d render, text, letters, words, watermark, signature, logo, frame, border, cropped, multiple characters, duplicate",
+  "sfx": "music, melody, speech, voice, background noise, hiss, long silence"
+ },
+ "images": [
+  {
+   "id": "hero_barbare",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a stocky muscular barbarian brawler with a horned helmet, braided red beard, fur loincloth, bare fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/barbare.png"
+  },
+  {
+   "id": "hero_chevalier",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a chubby human knight in dented shiny plate armor with a plumed helmet, visor up showing a proud mustache, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/chevalier.png"
+  },
+  {
+   "id": "hero_elfe",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a slender haughty female elf warrior with long blond hair, pointy ears, green leather armor and cape, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/elfe.png"
+  },
+  {
+   "id": "hero_naine",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a short chubby young woman warrior with a pretty clean-shaven girl face, freckles, rosy cheeks, two long thick orange pigtail braids, small iron viking helmet, chainmail tunic, big leather boots, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/naine.png"
+  },
+  {
+   "id": "hero_orc",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a huge green-skinned orc brute with tusks, mohawk, spiked shoulder pad, ragged trousers, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/orc.png"
+  },
+  {
+   "id": "hero_mage",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "an old wizard brawler with a long white beard, tall pointy blue star hat, blue robe with rolled-up sleeves, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/mage.png"
+  },
+  {
+   "id": "hero_voleuse",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a sly female rogue thief with a dark hood, red scarf, leather vest, mischievous grin, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/voleuse.png"
+  },
+  {
+   "id": "hero_minotaure",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a burly minotaur fighter with a bull head, big horns, nose ring, brown fur, leather kilt, fists raised in fighting stance",
+   "w": 832,
+   "h": 1024,
+   "size": 512,
+   "out": "assets/characters/minotaure.png"
+  },
+  {
+   "id": "boss_gobelin",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a small mean goblin king wearing a dented cooking pot as a crown, green skin, big ears, red cape, holding a dagger",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/gobelin.png"
+  },
+  {
+   "id": "boss_bandit",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a masked forest bandit archer with a green hood, black mask over the eyes, leather armor, holding a longbow",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/bandit.png"
+  },
+  {
+   "id": "boss_sorciere",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "an ugly swamp witch with green skin, crooked nose, ragged black dress, pointy hat with toads, holding a gnarled staff",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/sorciere.png"
+  },
+  {
+   "id": "boss_troll",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "an enormous bridge troll with grey mossy skin, tiny head, giant arms, holding a huge tree trunk club",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/troll.png"
+  },
+  {
+   "id": "boss_chevalier_noir",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a menacing black knight in spiky dark armor with glowing red eyes in the helmet visor, holding a giant two-handed sword",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/chevalier_noir.png"
+  },
+  {
+   "id": "boss_minotaure_roi",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a gigantic minotaur king with a golden crown on his horns, scarred red fur, heavy armor, holding a double axe",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/minotaure_roi.png"
+  },
+  {
+   "id": "boss_geant",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a gigantic frost giant with icy blue skin, frozen beard, fur armor, holding a massive ice hammer",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/geant.png"
+  },
+  {
+   "id": "boss_liche",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a terrifying lich skeleton sorcerer with a golden crown, tattered purple robes, glowing green eyes, holding a scythe",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/liche.png"
+  },
+  {
+   "id": "boss_demon",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a huge red demon lord with bat wings, curved horns, flaming eyes, holding a burning trident",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/demon.png"
+  },
+  {
+   "id": "boss_dragon",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a fearsome red dragon king standing on hind legs, golden crown, big wings spread, fire in its mouth",
+   "w": 1024,
+   "h": 1024,
+   "size": 640,
+   "out": "assets/bosses/dragon.png"
+  },
+  {
+   "id": "pet_loup",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a fierce grey wolf snarling, running pose",
+   "w": 1024,
+   "h": 1024,
+   "size": 384,
+   "out": "assets/pets/loup.png"
+  },
+  {
+   "id": "pet_ours",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a huge angry brown bear standing on its hind legs, roaring",
+   "w": 1024,
+   "h": 1024,
+   "size": 384,
+   "out": "assets/pets/ours.png"
+  },
+  {
+   "id": "pet_dragonnet",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a cute baby red dragon with small wings, flying, puffing a little flame",
+   "w": 1024,
+   "h": 1024,
+   "size": 384,
+   "out": "assets/pets/dragonnet.png"
+  },
+  {
+   "id": "pet_golem",
+   "wf": "sprite",
+   "style": "char",
+   "prompt": "a massive stone golem made of mossy rocks, glowing blue runes",
+   "w": 1024,
+   "h": 1024,
+   "size": 384,
+   "out": "assets/pets/golem.png"
+  },
+  {
+   "id": "weapon_epee",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a short steel sword with a leather grip",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/epee.png"
+  },
+  {
+   "id": "weapon_hache",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a big double-bladed war axe",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/hache.png"
+  },
+  {
+   "id": "weapon_masse",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a spiked iron mace",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/masse.png"
+  },
+  {
+   "id": "weapon_lance",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a long wooden spear with a steel tip and a red ribbon",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/lance.png"
+  },
+  {
+   "id": "weapon_fleau",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a flail with a spiked iron ball on a chain",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/fleau.png"
+  },
+  {
+   "id": "weapon_marteau",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a giant two-handed war hammer",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/marteau.png"
+  },
+  {
+   "id": "weapon_dague",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a curved dagger with a jeweled hilt",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/dague.png"
+  },
+  {
+   "id": "weapon_claymore",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "one single huge two-handed claymore sword, vertical, only one sword",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/claymore.png"
+  },
+  {
+   "id": "weapon_faux",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a single farming scythe weapon with a long wooden handle and a curved steel blade, object only, no person",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/faux.png"
+  },
+  {
+   "id": "weapon_trident",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a golden trident",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/trident.png"
+  },
+  {
+   "id": "weapon_gourdin",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a lone wooden cudgel tilted diagonally, thick rounded end with iron nails, thin handle, a single object",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/gourdin.png"
+  },
+  {
+   "id": "weapon_cimeterre",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a curved scimitar sword",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/cimeterre.png"
+  },
+  {
+   "id": "weapon_arc",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a wooden longbow with an arrow",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/arc.png"
+  },
+  {
+   "id": "weapon_arbalete",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a heavy wooden crossbow",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/arbalete.png"
+  },
+  {
+   "id": "weapon_baton",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a magic wizard staff with a glowing blue crystal",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/baton.png"
+  },
+  {
+   "id": "weapon_fouet",
+   "wf": "sprite",
+   "style": "icon",
+   "prompt": "a spiked leather whip coiled",
+   "w": 1024,
+   "h": 1024,
+   "size": 256,
+   "out": "assets/weapons/fouet.png"
+  },
+  {
+   "id": "skill_force",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a flexing muscular arm, red background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/force.png"
+  },
+  {
+   "id": "skill_agilite",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a leaping cat silhouette, green background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/agilite.png"
+  },
+  {
+   "id": "skill_velocite",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a winged boot, yellow background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/velocite.png"
+  },
+  {
+   "id": "skill_vitalite",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a glowing red heart, pink background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/vitalite.png"
+  },
+  {
+   "id": "skill_peau",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a cracked stone skin fist, grey background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/peau.png"
+  },
+  {
+   "id": "skill_bouclier",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a round oak wooden shield, brown background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/bouclier.png"
+  },
+  {
+   "id": "skill_contre",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "two crossed swords with a curved arrow, orange background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/contre.png"
+  },
+  {
+   "id": "skill_maitre",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a golden sword with laurels, gold background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/maitre.png"
+  },
+  {
+   "id": "skill_ombre",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a dark hooded shadow silhouette, purple background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/ombre.png"
+  },
+  {
+   "id": "skill_vampire",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a vampire fang dripping blood, dark red background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/vampire.png"
+  },
+  {
+   "id": "skill_survie",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a skull with a small flame of life, black background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/survie.png"
+  },
+  {
+   "id": "skill_potion",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a red healing potion bottle, teal background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/potion.png"
+  },
+  {
+   "id": "skill_feu",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a blazing fireball, orange background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/feu.png"
+  },
+  {
+   "id": "skill_eclair",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a lightning bolt, blue background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/eclair.png"
+  },
+  {
+   "id": "skill_cri",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a screaming barbarian mouth with sound waves, red background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/cri.png"
+  },
+  {
+   "id": "skill_sabotage",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a single sword blade snapped in half with flying broken metal pieces, grey background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/sabotage.png"
+  },
+  {
+   "id": "skill_charme",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "a pink heart with a spiral, magenta background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/charme.png"
+  },
+  {
+   "id": "skill_fureur",
+   "wf": "sprite",
+   "style": "skill",
+   "prompt": "an angry red face with flames, crimson background",
+   "w": 1024,
+   "h": 1024,
+   "size": 192,
+   "out": "assets/skills/fureur.png"
+  },
+  {
+   "id": "bg_arene",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a medieval tournament arena with wooden stands full of colorful banners, sandy ground, sunny sky",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene.jpg"
+  },
+  {
+   "id": "bg_arene_foret",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a forest clearing with giant oak trees, mushrooms and a goblin camp, grassy ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_foret.jpg"
+  },
+  {
+   "id": "bg_arene_marais",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a misty swamp with twisted trees, a witch hut on stilts, green fog, muddy ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_marais.jpg"
+  },
+  {
+   "id": "bg_arene_pont",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "an old stone bridge over a river with mountains in the background, stone ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_pont.jpg"
+  },
+  {
+   "id": "bg_arene_chateau",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a dark castle courtyard at dusk with towers and torches, cobblestone ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_chateau.jpg"
+  },
+  {
+   "id": "bg_arene_labyrinthe",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "an ancient underground stone labyrinth with torches and bones, stone floor",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_labyrinthe.jpg"
+  },
+  {
+   "id": "bg_arene_glace",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "frozen snowy mountains pass with ice crystals and a blizzard, snowy ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_glace.jpg"
+  },
+  {
+   "id": "bg_arene_crypte",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a spooky crypt with tombs, candles and green ghostly light, stone floor",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_crypte.jpg"
+  },
+  {
+   "id": "bg_arene_enfer",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "hell with lava rivers, black rocks and demonic statues, volcanic ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_enfer.jpg"
+  },
+  {
+   "id": "bg_arene_dragon",
+   "wf": "image",
+   "style": "scene",
+   "prompt": "a volcano summit with a dragon gold treasure hoard, fiery sky, rocky ground",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/arene_dragon.jpg"
+  },
+  {
+   "id": "scene_menu_bg",
+   "wf": "image",
+   "style": "art",
+   "prompt": "a cozy medieval fantasy tavern interior with brawlers arm wrestling, barrels, fireplace, warm candle light, cartoon, no text",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/menu_bg.jpg"
+  },
+  {
+   "id": "scene_map_bg",
+   "wf": "image",
+   "style": "art",
+   "prompt": "a hand-drawn fantasy board game map of one single invented kingdom island seen from above on old parchment, a winding dotted road crossing it from left to right through a green forest, a misty swamp, a stone bridge over a river, a dark castle, snowy mountains, a graveyard, a lava hell region and a volcano with a dragon at the far right, cartoon style, no text, no labels, not planet earth, no real continents",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/map_bg.jpg"
+  },
+  {
+   "id": "scene_key_art",
+   "wf": "image",
+   "style": "art",
+   "prompt": "two cartoon brawlers, a horned barbarian and a green orc, clashing fists in a medieval arena, crowd cheering, dust and sparks, dynamic composition",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/key_art.jpg"
+  },
+  {
+   "id": "scene_key_dragon",
+   "wf": "image",
+   "style": "art",
+   "prompt": "a tiny brave cartoon knight facing a gigantic red dragon king on a volcano summit, fire everywhere, epic",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/key_dragon.jpg"
+  },
+  {
+   "id": "scene_key_tavern",
+   "wf": "image",
+   "style": "art",
+   "prompt": "a crowded medieval tavern with cartoon warriors, elves, dwarves and orcs challenging each other, posters of fighters on the wall",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/key_tavern.jpg"
+  },
+  {
+   "id": "scene_key_campaign",
+   "wf": "image",
+   "style": "art",
+   "prompt": "a cartoon hero party walking on a winding road through a fantasy kingdom toward a dark castle and a volcano, sunrise",
+   "w": 1600,
+   "h": 896,
+   "size": 1600,
+   "out": "assets/bg/key_campaign.jpg"
+  },
+  {
+   "id": "ui_logo",
+   "wf": "sprite",
+   "style": "none",
+   "prompt": "game logo, the words \"BRUTES & LÉGENDES\" in big bold medieval golden letters with a crossed sword and axe behind, shield emblem, cartoon style, thick black outlines, isolated on plain white background",
+   "w": 1344,
+   "h": 768,
+   "size": 1024,
+   "keep_ratio": true,
+   "out": "assets/ui/logo.png"
+  },
+  {
+   "id": "ui_coin",
+   "wf": "sprite",
+   "style": "none",
+   "prompt": "a single shiny gold coin with an engraved crown, medieval fantasy game icon, cartoon style, thick black outlines, isolated on plain white background",
+   "w": 1024,
+   "h": 1024,
+   "size": 128,
+   "keep_ratio": false,
+   "out": "assets/ui/coin.png"
+  },
+  {
+   "id": "ui_icon",
+   "wf": "sprite",
+   "style": "none",
+   "prompt": "game app icon, a cartoon angry barbarian face with a horned helmet in front of a crossed sword and axe on a red heraldic shield, thick black outlines, flat cel shading, centered, isolated on plain white background, no text",
+   "w": 1024,
+   "h": 1024,
+   "size": 512,
+   "keep_ratio": false,
+   "out": "assets/ui/icon.png"
+  }
+ ],
+ "music": [
+  {
+   "id": "menu",
+   "out": "assets/music/menu.ogg",
+   "duration": 90,
+   "bpm": 100,
+   "key": "D minor",
+   "prompt": "medieval tavern folk music, lute, hurdy-gurdy, fiddle, bodhran drum, cheerful, humorous, instrumental, loopable"
+  },
+  {
+   "id": "combat",
+   "out": "assets/music/combat.ogg",
+   "duration": 90,
+   "bpm": 140,
+   "key": "E minor",
+   "prompt": "epic medieval battle music, fast war drums, brass fanfare, bagpipes, energetic, heroic, comedic fantasy fight, instrumental"
+  },
+  {
+   "id": "campagne",
+   "out": "assets/music/campagne.ogg",
+   "duration": 90,
+   "bpm": 90,
+   "key": "C major",
+   "prompt": "adventurous fantasy orchestral music, flute melody, strings, harp, horns, journey, hopeful, instrumental"
+  },
+  {
+   "id": "boss",
+   "out": "assets/music/boss.ogg",
+   "duration": 90,
+   "bpm": 150,
+   "key": "C minor",
+   "prompt": "dark epic boss battle music, choir, pipe organ, heavy drums, orchestral, intense, dramatic, instrumental"
+  },
+  {
+   "id": "victoire",
+   "out": "assets/music/victoire.ogg",
+   "duration": 12,
+   "bpm": 120,
+   "key": "C major",
+   "prompt": "short triumphant medieval victory fanfare, trumpets, drums, joyful, instrumental"
+  },
+  {
+   "id": "defaite",
+   "out": "assets/music/defaite.ogg",
+   "duration": 10,
+   "bpm": 70,
+   "key": "A minor",
+   "prompt": "short sad comedic defeat jingle, sad trombone, slow lute, instrumental"
+  },
+  {
+   "id": "trailer",
+   "out": "tools/trailer/music.ogg",
+   "duration": 75,
+   "bpm": 128,
+   "key": "D minor",
+   "prompt": "epic cinematic medieval fantasy trailer music, slow mysterious intro then war drums build up, choir, brass, bagpipes, powerful climax, instrumental"
+  }
+ ],
+ "sfx": [
+  {
+   "id": "hit_sharp",
+   "prompt": "sword slash cutting flesh impact, sharp metal swing hit",
+   "duration": 1.0,
+   "out": "assets/sfx/hit_sharp.wav"
+  },
+  {
+   "id": "hit_blunt",
+   "prompt": "heavy blunt club punch impact thud",
+   "duration": 1.0,
+   "out": "assets/sfx/hit_blunt.wav"
+  },
+  {
+   "id": "punch",
+   "prompt": "cartoon fist punch impact, whack",
+   "duration": 0.8,
+   "out": "assets/sfx/punch.wav"
+  },
+  {
+   "id": "whoosh",
+   "prompt": "fast weapon swing whoosh through air",
+   "duration": 0.7,
+   "out": "assets/sfx/whoosh.wav"
+  },
+  {
+   "id": "block",
+   "prompt": "sword hitting wooden shield, block clang",
+   "duration": 0.9,
+   "out": "assets/sfx/block.wav"
+  },
+  {
+   "id": "dodge",
+   "prompt": "quick swoosh dodge, cloth movement",
+   "duration": 0.6,
+   "out": "assets/sfx/dodge.wav"
+  },
+  {
+   "id": "crit",
+   "prompt": "massive critical hit impact with metal crash and bone crunch",
+   "duration": 1.2,
+   "out": "assets/sfx/crit.wav"
+  },
+  {
+   "id": "arrow",
+   "prompt": "bow string twang and arrow flying whoosh",
+   "duration": 1.0,
+   "out": "assets/sfx/arrow.wav"
+  },
+  {
+   "id": "fire",
+   "prompt": "fireball spell cast, fire whoosh and explosion",
+   "duration": 1.6,
+   "out": "assets/sfx/fire.wav"
+  },
+  {
+   "id": "lightning",
+   "prompt": "lightning bolt thunder crack electric zap",
+   "duration": 1.6,
+   "out": "assets/sfx/lightning.wav"
+  },
+  {
+   "id": "heal",
+   "prompt": "magic healing spell shimmer, sparkling chime",
+   "duration": 1.5,
+   "out": "assets/sfx/heal.wav"
+  },
+  {
+   "id": "growl_wolf",
+   "prompt": "angry wolf growl and snarl",
+   "duration": 1.2,
+   "out": "assets/sfx/growl_wolf.wav"
+  },
+  {
+   "id": "roar_bear",
+   "prompt": "big bear roar",
+   "duration": 1.5,
+   "out": "assets/sfx/roar_bear.wav"
+  },
+  {
+   "id": "roar_dragon",
+   "prompt": "dragon roar with fire breath",
+   "duration": 2.0,
+   "out": "assets/sfx/roar_dragon.wav"
+  },
+  {
+   "id": "crowd_cheer",
+   "prompt": "medieval crowd cheering and applauding in arena",
+   "duration": 3.0,
+   "out": "assets/sfx/crowd_cheer.wav"
+  },
+  {
+   "id": "crowd_ooh",
+   "prompt": "crowd gasping ooh in arena",
+   "duration": 1.8,
+   "out": "assets/sfx/crowd_ooh.wav"
+  },
+  {
+   "id": "levelup",
+   "prompt": "magical level up chime, ascending harp and bells",
+   "duration": 2.0,
+   "out": "assets/sfx/levelup.wav"
+  },
+  {
+   "id": "click",
+   "prompt": "short wooden button click",
+   "duration": 0.3,
+   "out": "assets/sfx/click.wav"
+  },
+  {
+   "id": "coins",
+   "prompt": "gold coins jingling",
+   "duration": 1.0,
+   "out": "assets/sfx/coins.wav"
+  },
+  {
+   "id": "death",
+   "prompt": "body falling to the ground thud with armor clatter",
+   "duration": 1.3,
+   "out": "assets/sfx/death.wav"
+  },
+  {
+   "id": "draw",
+   "prompt": "sword unsheathed from scabbard, metal ring",
+   "duration": 0.9,
+   "out": "assets/sfx/draw.wav"
+  },
+  {
+   "id": "break",
+   "prompt": "wooden weapon snapping and breaking, metal shatter",
+   "duration": 1.0,
+   "out": "assets/sfx/break.wav"
+  },
+  {
+   "id": "shout",
+   "prompt": "loud angry battle cry of a barbarian warrior",
+   "duration": 1.5,
+   "out": "assets/sfx/shout.wav"
+  },
+  {
+   "id": "gong",
+   "prompt": "big gong hit, start of the fight",
+   "duration": 2.5,
+   "out": "assets/sfx/gong.wav"
+  }
+ ]
+}

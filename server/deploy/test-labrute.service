@@ -1,0 +1,21 @@
+[Unit]
+Description=Brutes & Legendes - serveur de jeu (API, lobby, salons)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/test-labrute/server
+Environment=PORT=8097
+Environment=HOST=127.0.0.1
+Environment=DATA_DIR=/var/lib/test-labrute
+Environment=ADMINS=Admin
+ExecStart=/usr/bin/node src/server.js
+# SIGTERM : la base et les salons sont écrits sur disque, les clients se reconnectent seuls.
+KillSignal=SIGTERM
+Restart=always
+RestartSec=1
+MemoryMax=300M
+
+[Install]
+WantedBy=multi-user.target
