@@ -2,11 +2,10 @@
 
 <h3 align="center">ValorBrawl — Brutes &amp; Légendes</h3>
 <p align="center">Jeu multijoueur de combats automatiques façon <i>La Brute</i>, en version médiéval fantastique.<br>
-Client <b>Godot 4.7</b> (Web + Windows), serveur <b>Node.js</b>, graphismes, sons, musiques et bande-annonce générés avec <b>ComfyUI</b>.</p>
+Client <b>Godot 4.7</b> (Windows), serveur <b>Node.js</b>, graphismes, sons, musiques et bande-annonce générés avec <b>ComfyUI</b>.</p>
 
 <p align="center">
   <a href="http://51.254.211.144/test-labrute/">Site du jeu</a> ·
-  <a href="https://vps-3962b7dc.vps.ovh.net/test-labrute/jouer/">Jouer dans le navigateur</a> ·
   <a href="http://51.254.211.144/test-labrute/downloads/BrutesEtLegendes-Windows.zip">Télécharger pour Windows</a>
 </p>
 
@@ -59,7 +58,7 @@ server/src/                          serveur Node.js (dépendance unique : ws)
   brutes.js, progress.js             brutes, niveaux, IA, boss ; écus, passe, quêtes, cosmétiques
   server.js, store.js                API REST, lobby/salons/amis (WebSocket), stockage JSON atomique
 server/deploy/                       unité systemd + snippet nginx (/test-labrute/)
-website/                             site vitrine statique
+website/                             site vitrine (présentation + téléchargement)
 tools/comfy/                         workflows ComfyUI (format API) + générateur d'assets
 tools/trailer/                       plans vidéo MiniMax H3 + montage de la bande-annonce
 tools/build.py, tools/deploy.py      export Godot (Web, Windows, pack de mise à jour) et déploiement
@@ -67,7 +66,7 @@ tools/build.py, tools/deploy.py      export Godot (Web, Windows, pack de mise à
 
 **Mises à jour sans déconnexion** : au redémarrage du serveur (SIGTERM), la base et les salons sont écrits sur disque ;
 les clients se reconnectent seuls en ~1 s et retrouvent leur salon. Sur PC, le nouveau `.pck` est téléchargé pendant
-la partie puis appliqué au redémarrage choisi par le joueur ; sur le web, un bandeau propose de recharger.
+la partie puis appliqué au redémarrage choisi par le joueur.
 
 ## Assets générés avec ComfyUI
 
@@ -93,7 +92,7 @@ cd server && npm install && npm test      # test de bout en bout (comptes, comba
 node test/sim.js                          # équilibrage (taux de victoire contre chaque boss)
 DATA_DIR=var-local node src/server.js     # serveur local sur 127.0.0.1:8097
 godot --path . -- --server=http://127.0.0.1:8097/api
-python tools/build.py --all               # build/web, build/windows, pack de mise à jour
+python tools/build.py --all               # build/windows (+ dossier ValorBrawl du bureau), pack de mise à jour
 python tools/deploy.py --all --notes="..."  # déploiement (alias SSH configuré localement)
 ```
 

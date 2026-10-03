@@ -1,8 +1,7 @@
 """Construit Brutes & Légendes avec Godot 4.7.
 
-Usage : python tools/build.py [--web] [--windows] [--update] [--all]
+Usage : python tools/build.py [--windows] [--update] [--all]
 
-  --web      version navigateur (sans threads : aucun en-tête COOP/COEP requis) -> build/web/
   --windows  exe + pck -> build/windows/, copie dans le dossier « ValorBrawl » du bureau
              (avec LISEZMOI.txt et la bande-annonce) et archive build/BrutesEtLegendes-Windows.zip
   --update   pack de mise à jour seul -> build/update/brutes-<version>.pck (publié par tools/deploy.py --update)
@@ -22,7 +21,7 @@ README = """BRUTES & LÉGENDES — combats de brutes en ligne, version médiéva
 ==========================================================================
 
 Lancer : double-cliquer sur BrutesEtLegendes.exe (garder BrutesEtLegendes.pck à côté).
-Site du jeu : http://51.254.211.144/test-labrute/   (jouable aussi dans le navigateur)
+Site du jeu : http://51.254.211.144/test-labrute/
 
 PRINCIPE
 - Crée un compte puis ta brute : nom + apparence. Ses caractéristiques et un premier bonus
@@ -42,7 +41,7 @@ MODES
 - « Signaler » (en haut à droite) : bugs et suggestions, votes et commentaires.
 
 EN LIGNE
-- Toute la progression est sauvegardée sur le serveur : même compte sur PC et dans le navigateur.
+- Toute la progression est sauvegardée sur le serveur : tu retrouves ta brute sur n'importe quel PC.
 - 20 combats par brute et par jour (hors campagne), plus avec les potions d'énergie.
 - Mises à jour : le jeu les télécharge en arrière-plan sans te déconnecter, puis propose
   de redémarrer (sinon elles s'installent au lancement suivant).
@@ -65,14 +64,6 @@ def version():
         if line.startswith("config/version="):
             return line.split("=", 1)[1].strip().strip('"')
     return "1.0.0"
-
-
-def build_web():
-    out = os.path.join(ROOT, "build", "web")
-    shutil.rmtree(out, ignore_errors=True)
-    os.makedirs(out)
-    godot("--export-release", "Web", "build/web/index.html")
-    print("Web :", sorted(os.listdir(out)))
 
 
 def build_windows():
@@ -110,7 +101,6 @@ def main():
     args = sys.argv[1:] or ["--all"]
     every = "--all" in args
     godot("--import")
-    if every or "--web" in args: build_web()
     if every or "--windows" in args: build_windows()
     if every or "--update" in args: build_update()
 

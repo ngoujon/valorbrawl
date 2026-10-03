@@ -1,14 +1,13 @@
 """Déploie Brutes & Légendes sur le VPS sans couper les joueurs connectés.
 
-Usage : python tools/deploy.py [--server] [--site] [--web] [--downloads] [--update] [--all] [--notes="..."]
+Usage : python tools/deploy.py [--server] [--site] [--downloads] [--update] [--all] [--notes="..."]
 
   --server     code du serveur (Node) + contenu du jeu, puis redémarrage en douceur : la base et les salons sont
                écrits sur disque, les clients se reconnectent automatiquement en ~1 s et retrouvent leur salon.
   --site       site vitrine (website/) -> /var/www/test-labrute/
-  --web        version navigateur (build/web) -> /test-labrute/jouer/
   --downloads  archive Windows (build/BrutesEtLegendes-Windows.zip) -> /test-labrute/downloads/
-  --update     publie le pack de mise à jour (build/update/brutes-<version>.pck) et version.json : les clients PC
-               le téléchargent en arrière-plan pendant qu'ils jouent, les clients web voient « Recharger ».
+  --update     publie le pack de mise à jour (build/update/brutes-<version>.pck) et version.json : les clients
+               le téléchargent en arrière-plan pendant qu'ils jouent puis redémarrent quand ils le souhaitent.
 Prérequis : alias SSH « arcanes-vps » (~/.ssh/config) ; builds produits par tools/build.py.
 """
 import json
@@ -65,12 +64,6 @@ def deploy_site():
     push_tree([(os.path.join(site, n), n) for n in os.listdir(site)], "/var/www/test-labrute")
 
 
-def deploy_web():
-    print("Version navigateur...")
-    web = os.path.join(ROOT, "build", "web")
-    push_tree([(os.path.join(web, n), n) for n in os.listdir(web)], "/var/www/test-labrute/jouer", clean=True)
-
-
 def deploy_downloads():
     print("Téléchargements...")
     z = os.path.join(ROOT, "build", "BrutesEtLegendes-Windows.zip")
@@ -95,7 +88,6 @@ def main():
     notes = next((a.split("=", 1)[1] for a in args if a.startswith("--notes=")), "")
     if every or "--server" in args: deploy_server()
     if every or "--site" in args: deploy_site()
-    if every or "--web" in args: deploy_web()
     if every or "--downloads" in args: deploy_downloads()
     if every or "--update" in args: deploy_update(notes)
     ssh("sudo nginx -t -q && sudo systemctl reload nginx")

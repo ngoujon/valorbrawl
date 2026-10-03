@@ -58,6 +58,12 @@ func _ready() -> void:
 	Updater.update_available.connect(_on_update)
 	Updater.progress.connect(func(r: float) -> void: _banner_label.text = "Téléchargement de la mise à jour : %d %%" % int(r * 100))
 	Updater.ready_to_restart.connect(_on_update_ready)
+	if "--auto-update" in OS.get_cmdline_user_args():
+		# Outil de test : télécharge la mise à jour dès qu'elle est annoncée, puis l'installe et relance le jeu.
+		Updater.update_available.connect(func(_i: Dictionary) -> void: Updater.download())
+		Updater.ready_to_restart.connect(func() -> void:
+			print("MISE A JOUR PRETE ", Updater.latest.version)
+			Updater.restart())
 	if "--check" in OS.get_cmdline_user_args():
 		# Vérification (outil de dev) : charge tous les écrans puis quitte.
 		for k in SCREENS:
@@ -275,7 +281,7 @@ func _on_update(info: Dictionary) -> void:
 	_banner.visible = true
 	var notes := str(info.get("notes", ""))
 	_banner_label.text = "Mise à jour %s disponible%s" % [info.version, (" : " + notes) if notes != "" else ""]
-	_banner_btn.text = "Recharger la page" if OS.has_feature("web") else "Télécharger"
+	_banner_btn.text = "Télécharger"
 	_banner_btn.disabled = false
 
 
@@ -287,7 +293,7 @@ func _on_update_ready() -> void:
 
 
 func _banner_action() -> void:
-	if OS.has_feature("web") or Updater.downloaded:
+	if Updater.downloaded:
 		Updater.restart()
 	else:
 		_banner_btn.disabled = true
@@ -370,17 +376,15 @@ func _open_settings() -> void:
 			Audio.set(key, val)
 			Audio.save_settings())
 		v.add_child(s)
-	if not OS.has_feature("web"):
-		v.add_child(Game.button("Plein écran", func() -> void:
-			var w := get_window()
-			w.mode = Window.MODE_WINDOWED if w.mode == Window.MODE_FULLSCREEN else Window.MODE_FULLSCREEN))
+	v.add_child(Game.button("Plein écran", func() -> void:
+		var w := get_window()
+		w.mode = Window.MODE_WINDOWED if w.mode == Window.MODE_FULLSCREEN else Window.MODE_FULLSCREEN))
 	if Api.token != "":
 		v.add_child(Game.button("Se déconnecter", func() -> void:
 			shade.queue_free()
 			Api.logout()
 			show_screen("login")))
-	if not OS.has_feature("web"):
-		v.add_child(Game.button("Quitter le jeu", func() -> void: get_tree().quit()))
+	v.add_child(Game.button("Quitter le jeu", func() -> void: get_tree().quit()))
 	var ver := Game.label("Version %s" % Updater.current, 15, Game.MUTED)
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(ver)

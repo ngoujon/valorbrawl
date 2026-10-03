@@ -19,10 +19,6 @@ var _was_connected := false
 
 
 func _ready() -> void:
-	if OS.has_feature("web"):
-		var origin = JavaScriptBridge.eval("window.location.origin", true)
-		if typeof(origin) == TYPE_STRING and origin != "":
-			base_url = origin + "/test-labrute/api"
 	for arg in OS.get_cmdline_user_args() + OS.get_cmdline_args():
 		if arg.begins_with("--server="):
 			base_url = arg.substr(9)

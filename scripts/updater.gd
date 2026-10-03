@@ -1,9 +1,8 @@
 extends Node
 ## Mises à jour sans couper la partie :
 ## - le serveur publie /api/version : {version, pck, size, notes} ;
-## - sur PC, le nouveau pack (.pck) est téléchargé en arrière-plan dans user://update/ pendant que l'on joue,
-##   puis le jeu se relance dessus (--main-pack) quand le joueur le décide ; au lancement suivant il est repris d'office ;
-## - sur le web, il suffit de recharger la page (le serveur sert déjà la nouvelle version).
+## - le nouveau pack (.pck) est téléchargé en arrière-plan dans user://update/ pendant que l'on joue,
+##   puis installé à côté de l'exe et le jeu relancé quand le joueur le décide (sinon au lancement suivant).
 
 signal update_available(info: Dictionary)
 signal progress(ratio: float)
@@ -22,7 +21,7 @@ var _downloading := false
 
 func _ready() -> void:
 	current = str(ProjectSettings.get_setting("application/config/version", "1.0.0"))
-	if not OS.has_feature("web") and not OS.has_feature("editor"):
+	if not OS.has_feature("editor"):
 		_apply_pending()
 	_check.call_deferred()
 
@@ -45,25 +44,37 @@ func _pending_version() -> String:
 
 
 func _apply_pending() -> void:
-	## Au démarrage : si un pack plus récent a été téléchargé et qu'on ne tourne pas déjà dessus, relancer dessus.
+	## Au démarrage : si un pack plus récent a été téléchargé mais pas encore installé, l'installer (relance).
 	var v := _pending_version()
-	var pck := ProjectSettings.globalize_path(DIR + "game.pck")
 	if v == "" or not FileAccess.file_exists(DIR + "game.pck"):
 		return
 	if not newer(v, current):
-		if "--main-pack" not in OS.get_cmdline_args():
-			DirAccess.remove_absolute(pck)
-			DirAccess.remove_absolute(ProjectSettings.globalize_path(DIR + "version.txt"))
+		# déjà installé : ménage
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(DIR + "game.pck"))
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(DIR + "version.txt"))
 		return
-	_relaunch(pck)
+	_install_and_relaunch()
 
 
-func _relaunch(pck: String) -> void:
-	var args := PackedStringArray(["--main-pack", pck])
-	for a in OS.get_cmdline_args():
-		if a.begins_with("--server="):
-			args.append(a)
-	OS.create_process(OS.get_executable_path(), args)
+func _install_and_relaunch() -> void:
+	## Les templates release de Godot n'acceptent pas --main-pack : un script PowerShell masqué attend la fermeture
+	## du jeu, remplace le .pck posé à côté de l'exe par le nouveau, puis relance l'exe.
+	var exe := OS.get_executable_path()
+	var target := exe.get_basename() + ".pck"
+	var src := ProjectSettings.globalize_path(DIR + "game.pck")
+	var ps1 := ProjectSettings.globalize_path(DIR + "install.ps1")
+	var q := func(p: String) -> String: return "'" + p.replace("/", "\\").replace("'", "''") + "'"
+	var lines := PackedStringArray([
+		"$ErrorActionPreference = 'SilentlyContinue'",
+		"Wait-Process -Id %d -Timeout 15" % OS.get_process_id(),
+		"for ($i = 0; $i -lt 20; $i++) { try { Copy-Item -LiteralPath %s -Destination %s -Force -ErrorAction Stop; break } catch { Start-Sleep -Milliseconds 500 } }" % [q.call(src), q.call(target)],
+		"Start-Process -FilePath %s" % q.call(exe),
+	])
+	var script := char(0xFEFF) + "\r\n".join(lines) + "\r\n"
+	var f := FileAccess.open(DIR + "install.ps1", FileAccess.WRITE)
+	f.store_string(script)
+	f.close()
+	OS.create_process("powershell.exe", PackedStringArray(["-NoProfile", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden", "-File", ps1]))
 	get_tree().quit()
 
 
@@ -82,13 +93,13 @@ func _check() -> void:
 		latest = res
 		downloaded = false
 		update_available.emit(res)
-		if not OS.has_feature("web") and _pending_version() == str(res.version) and FileAccess.file_exists(DIR + "game.pck"):
+		if _pending_version() == str(res.version) and FileAccess.file_exists(DIR + "game.pck"):
 			downloaded = true
 			ready_to_restart.emit()
 
 
 func download() -> void:
-	if _downloading or latest.is_empty() or OS.has_feature("web"):
+	if _downloading or latest.is_empty():
 		return
 	_downloading = true
 	DirAccess.make_dir_recursive_absolute(DIR)
@@ -123,8 +134,5 @@ func download() -> void:
 
 
 func restart() -> void:
-	if OS.has_feature("web"):
-		JavaScriptBridge.eval("window.location.reload()")
-		return
 	if downloaded:
-		_relaunch(ProjectSettings.globalize_path(DIR + "game.pck"))
+		_install_and_relaunch()
